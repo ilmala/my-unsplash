@@ -9,9 +9,7 @@
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     </head>
     <body class="bg-gray-100 antialiased">
-        <div id="app" class="">
-            <h1 class="text-4xl text-gray-700">My Unsplash</h1>
-        </div>
+        <div id="app" class=""></div>
 
         <script src="{{ asset('js/app.js') }}"></script>
     </body>
