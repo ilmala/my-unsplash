@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>My Unsplash</title>
 
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     </head>
@@ -12,5 +12,7 @@
         <div id="app" class="">
             <h1 class="text-4xl text-gray-700">My Unsplash</h1>
         </div>
+
+        <script src="{{ asset('js/app.js') }}"></script>
     </body>
 </html>
