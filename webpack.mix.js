@@ -15,3 +15,8 @@ mix.js('resources/js/app.js', 'public/js').vue();
 mix.postCss('resources/css/app.css', 'public/css', [
     require("tailwindcss"),
 ]);
+mix.browserSync({
+    proxy: 'my-unsplash.test',
+    open: false,
+    notify: false
+});
