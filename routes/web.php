@@ -15,4 +15,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'home');
 
+Route::get('images', [\App\Http\Controllers\ImageController::class, 'index'])->name('images.index');
+
 

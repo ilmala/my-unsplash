@@ -16,7 +16,7 @@ mix.postCss('resources/css/app.css', 'public/css', [
     require("tailwindcss"),
 ]);
 mix.browserSync({
-    proxy: 'my-unsplash.test',
+    proxy: 'https://my-unsplash.test',
     open: false,
     notify: false
 });
