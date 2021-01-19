@@ -1885,6 +1885,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "App",
@@ -19563,7 +19566,7 @@ var render = function() {
                 _vm._v(" "),
                 _c("input", {
                   staticClass:
-                    "w-72 border border-gray-300 focus:border-blue-300 focus:outline-none focus:ring-4 focus:ring-blue-200 leading-7 pl-10 pr-4 py-3 rounded-xl text-sm",
+                    "w-72 border border-gray-300 focus:border-indigo-300 focus:outline-none focus:ring-4 focus:ring-indigo-200 leading-7 pl-10 pr-4 py-3 rounded-xl text-sm",
                   attrs: { type: "text", placeholder: "Search by name" }
                 })
               ])
@@ -19624,7 +19627,7 @@ var staticRenderFns = [
         "button",
         {
           staticClass:
-            "bg-green-500 hover:bg-green-400 border border-green-500 font-semibold text-white py-3 px-5 shadow-sm rounded-xl focus:outline-none focus:ring-4 focus:ring-green-200 leading-7 whitespace-nowrap",
+            "bg-indigo-500 hover:bg-indigo-400 border border-indigo-500 font-semibold text-white py-3 px-5 shadow-sm rounded-xl focus:outline-none focus:ring-4 focus:ring-indigo-200 leading-7 whitespace-nowrap",
           attrs: { type: "button" }
         },
         [_vm._v("\n                    Add a photo\n                ")]
