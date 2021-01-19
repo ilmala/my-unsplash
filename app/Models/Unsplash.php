@@ -15,7 +15,7 @@ class Unsplash extends Model
     public function getRows()
     {
         return Cache::remember('unsplash-images', now()->addDay(), function () {
-            $url = "https://picsum.photos/v2/list";
+            $url = "https://picsum.photos/v2/list?limit=100";
             return json_decode(file_get_contents($url), true);
         });
     }
