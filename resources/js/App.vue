@@ -45,7 +45,7 @@
                                 class="opacity-0 group-hover:opacity-100 p-6 absolute inset-0 flex items-end bg-gray-900 bg-opacity-80 text-sm text-white transition-all duration-300">
                                 <button
                                     class="absolute top-4 right-4 px-2 py-1 text-xs text-red-400 border border-red-400 rounded-full hover:bg-red-400 hover:text-white transition duration-300"
-                                    @click.prevent="onDeletePhoto(index)"
+                                    @click.prevent="onShowDeletePhotoModal(index)"
                                 >
                                     Delete
                                 </button>
@@ -60,63 +60,91 @@
             </div>
         </main>
 
-        <div v-if="showAddPhotoModal"
-             class="fixed bg-gray-900 bg-opacity-80 inset-0 flex justify-center items-center px-8 py-12"
-             @click.prevent="closeModal"
-        >
-            <div class="relative bg-white w-full max-w-lg rounded-xl shadow-2xl p-8" @click.stop>
-                <h2 class="text-2xl text-gray-900">
-                    Add new photo
-                </h2>
+        <Modal :open="showAddPhotoModal" @close="closeAddPhotoModal">
+            <h2 class="text-2xl text-gray-900">
+                Add new photo
+            </h2>
 
-                <form class="mt-8" action="" @submit.prevent>
-                    <div>
-                        <label for="label" class="block text-xs text-gray-600">Label</label>
-                        <input type="text" ref="labelInput" v-model="label" id="label" name="label"
-                               class="mt-1 w-full px-3 py-2 leading-6 border rounded-md shadow-sm"
-                               :class="{'border-red-400': formErrors.label}"
-                               autofocus required
-                        >
-                        <div v-if="formErrors.label" class="mt-1 font-medium text-xs text-red-400">
-                            {{ formErrors.label[0] }}
-                        </div>
+            <form class="mt-8" action="" @submit.prevent>
+                <div>
+                    <label for="label" class="block text-xs text-gray-600">Label</label>
+                    <input type="text" ref="labelInput" v-model="label" id="label" name="label"
+                           class="mt-1 w-full px-3 py-2 leading-6 border rounded-md shadow-sm"
+                           :class="{'border-red-400': formErrors.label}"
+                           autofocus required
+                    >
+                    <div v-if="formErrors.label" class="mt-1 font-medium text-xs text-red-400">
+                        {{ formErrors.label[0] }}
                     </div>
+                </div>
 
-                    <div class="mt-4">
-                        <label for="url" class="block text-xs text-gray-600">Photo URL</label>
-                        <input type="text" v-model="url" id="url" name="url"
-                               class="mt-1 w-full px-3 py-2 leading-6 border rounded-md shadow-sm"
-                               :class="{'border-red-400': formErrors.url}"
-                               required
-                        >
-                        <div v-if="formErrors.url" class="mt-1 font-medium text-xs text-red-400">
-                            {{ formErrors.url[0] }}
-                        </div>
+                <div class="mt-4">
+                    <label for="url" class="block text-xs text-gray-600">Photo URL</label>
+                    <input type="text" v-model="url" id="url" name="url"
+                           class="mt-1 w-full px-3 py-2 leading-6 border rounded-md shadow-sm"
+                           :class="{'border-red-400': formErrors.url}"
+                           required
+                    >
+                    <div v-if="formErrors.url" class="mt-1 font-medium text-xs text-red-400">
+                        {{ formErrors.url[0] }}
                     </div>
+                </div>
 
-                    <div class="flex justify-end mt-4 space-x-4">
-                        <button type="button"
-                                class="bg-white hover:bg-gray-200 border border-white font-semibold text-gray-400 py-3 px-5 rounded-xl focus:outline-none focus:ring-4 focus:ring-gray-100 leading-7 whitespace-nowrap"
-                                @click.prevent="showAddPhotoModal=false"
-                        >
-                            Cancel
-                        </button>
+                <div class="flex justify-end mt-4 space-x-4">
+                    <button type="button"
+                            class="bg-white hover:bg-gray-200 border border-white font-semibold text-gray-400 py-3 px-5 rounded-xl focus:outline-none focus:ring-4 focus:ring-gray-100 leading-7 whitespace-nowrap"
+                            @click.prevent="closeAddPhotoModal"
+                    >
+                        Cancel
+                    </button>
 
-                        <button type="submit"
-                                class="bg-indigo-500 hover:bg-indigo-400 border border-indigo-500 font-semibold text-white py-3 px-5 shadow-sm rounded-xl focus:outline-none focus:ring-4 focus:ring-indigo-200 leading-7 whitespace-nowrap"
-                                @click.prevent="onAddPhoto"
-                        >
-                            Submit
-                        </button>
-                    </div>
-                </form>
+                    <button type="submit"
+                            class="bg-indigo-500 hover:bg-indigo-400 border border-indigo-500 font-semibold text-white py-3 px-5 shadow-sm rounded-xl focus:outline-none focus:ring-4 focus:ring-indigo-200 leading-7 whitespace-nowrap"
+                            @click.prevent="onAddPhoto"
+                    >
+                        Submit
+                    </button>
+                </div>
+            </form>
+        </Modal>
+
+        <Modal :open="showDeletePhotoModal" @close="closeDeletePhotoModal">
+            <h2 class="text-2xl text-gray-900">
+                Delete photo
+            </h2>
+
+            <div class="mt-4">
+                <p class="text-gray-600">For security reasons we need you to enter your password to delete this photo</p>
             </div>
-        </div>
+
+            <div class="mt-4">
+                <input type="password" v-model="deletePassword" class="mt-1 w-full px-3 py-2 leading-6 border rounded-md shadow-sm" required>
+            </div>
+
+            <div class="flex justify-end mt-4 space-x-4">
+                <button type="button"
+                        class="bg-white hover:bg-gray-200 border border-white font-semibold text-gray-400 py-3 px-5 rounded-xl focus:outline-none focus:ring-4 focus:ring-gray-100 leading-7 whitespace-nowrap"
+                        @click.prevent="closeDeletePhotoModal"
+                >
+                    Cancel
+                </button>
+
+                <button type="submit"
+                        class="bg-red-500 hover:bg-red-400 disabled:opacity-50 border border-red-500 font-semibold text-white py-3 px-5 shadow-sm rounded-xl focus:outline-none focus:ring-4 focus:ring-red-200 leading-7 whitespace-nowrap"
+                        @click.prevent="onDeletePhoto"
+                        :disabled="!deletePassword.length"
+                >
+                    Delete
+                </button>
+            </div>
+        </Modal>
+
     </div>
 </template>
 
 <script>
 import Logo from "./components/Logo";
+import Modal from "./components/Modal";
 
 export default {
     name: "App",
@@ -127,7 +155,10 @@ export default {
             label: '',
             url: '',
             showAddPhotoModal: false,
-            formErrors: {}
+            showDeletePhotoModal: false,
+            selectedIndexImageToDelete: null,
+            formErrors: {},
+            deletePassword: ''
         }
     },
     mounted() {
@@ -157,23 +188,34 @@ export default {
                 }
             }
         },
-        async onDeletePhoto(index) {
+        async onDeletePhoto() {
             try {
-                let image = this.images[index];
+                let image = this.images[this.selectedIndexImageToDelete];
                 let {data} = await axios.delete('/images/' + image.id);
-                this.$delete(this.images, index);
+                this.$delete(this.images, this.selectedIndexImageToDelete);
+                this.selectedIndexImageToDelete = null;
+                this.showDeletePhotoModal = false;
+                this.deletePassword = '';
             } catch (err) {
                 console.log(err.message);
             }
         },
-        closeModal() {
+        onShowDeletePhotoModal(index) {
+            this.selectedIndexImageToDelete = index;
+            this.showDeletePhotoModal = true;
+        },
+        closeAddPhotoModal() {
             this.label = '';
             this.url = '';
             this.showAddPhotoModal = false;
+        },
+        closeDeletePhotoModal() {
+            this.showDeletePhotoModal = false;
         }
     },
     components: {
-        Logo
+        Logo,
+        Modal
     }
 }
 </script>

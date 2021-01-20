@@ -1859,6 +1859,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_Logo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/Logo */ "./resources/js/components/Logo.vue");
+/* harmony import */ var _components_Modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Modal */ "./resources/js/components/Modal.vue");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -1982,6 +1983,34 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "App",
@@ -1992,7 +2021,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       label: '',
       url: '',
       showAddPhotoModal: false,
-      formErrors: {}
+      showDeletePhotoModal: false,
+      selectedIndexImageToDelete: null,
+      formErrors: {},
+      deletePassword: ''
     };
   },
   mounted: function mounted() {
@@ -2074,7 +2106,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee2, null, [[1, 10]]);
       }))();
     },
-    onDeletePhoto: function onDeletePhoto(index) {
+    onDeletePhoto: function onDeletePhoto() {
       var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
@@ -2085,7 +2117,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context3.prev = _context3.next) {
               case 0:
                 _context3.prev = 0;
-                image = _this3.images[index];
+                image = _this3.images[_this3.selectedIndexImageToDelete];
                 _context3.next = 4;
                 return axios["delete"]('/images/' + image.id);
 
@@ -2093,32 +2125,43 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _yield$axios$delete = _context3.sent;
                 data = _yield$axios$delete.data;
 
-                _this3.$delete(_this3.images, index);
+                _this3.$delete(_this3.images, _this3.selectedIndexImageToDelete);
 
-                _context3.next = 12;
+                _this3.selectedIndexImageToDelete = null;
+                _this3.showDeletePhotoModal = false;
+                _this3.deletePassword = '';
+                _context3.next = 15;
                 break;
 
-              case 9:
-                _context3.prev = 9;
+              case 12:
+                _context3.prev = 12;
                 _context3.t0 = _context3["catch"](0);
                 console.log(_context3.t0.message);
 
-              case 12:
+              case 15:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, null, [[0, 9]]);
+        }, _callee3, null, [[0, 12]]);
       }))();
     },
-    closeModal: function closeModal() {
+    onShowDeletePhotoModal: function onShowDeletePhotoModal(index) {
+      this.selectedIndexImageToDelete = index;
+      this.showDeletePhotoModal = true;
+    },
+    closeAddPhotoModal: function closeAddPhotoModal() {
       this.label = '';
       this.url = '';
       this.showAddPhotoModal = false;
+    },
+    closeDeletePhotoModal: function closeDeletePhotoModal() {
+      this.showDeletePhotoModal = false;
     }
   },
   components: {
-    Logo: _components_Logo__WEBPACK_IMPORTED_MODULE_1__.default
+    Logo: _components_Logo__WEBPACK_IMPORTED_MODULE_1__.default,
+    Modal: _components_Modal__WEBPACK_IMPORTED_MODULE_2__.default
   }
 });
 
@@ -2148,6 +2191,40 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Logo"
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Modal.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Modal.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "Modal",
+  props: ['open'],
+  methods: {
+    onClose: function onClose() {
+      this.$emit('close');
+    }
+  }
 });
 
 /***/ }),
@@ -20416,6 +20493,45 @@ component.options.__file = "resources/js/components/Logo.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/Modal.vue":
+/*!*******************************************!*\
+  !*** ./resources/js/components/Modal.vue ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _Modal_vue_vue_type_template_id_53ab54d2_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Modal.vue?vue&type=template&id=53ab54d2&scoped=true& */ "./resources/js/components/Modal.vue?vue&type=template&id=53ab54d2&scoped=true&");
+/* harmony import */ var _Modal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Modal.vue?vue&type=script&lang=js& */ "./resources/js/components/Modal.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _Modal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _Modal_vue_vue_type_template_id_53ab54d2_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Modal_vue_vue_type_template_id_53ab54d2_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "53ab54d2",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Modal.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/App.vue?vue&type=script&lang=js&":
 /*!*******************************************************!*\
   !*** ./resources/js/App.vue?vue&type=script&lang=js& ***!
@@ -20445,6 +20561,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Logo_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Logo.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Logo.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Logo_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Modal.vue?vue&type=script&lang=js&":
+/*!********************************************************************!*\
+  !*** ./resources/js/components/Modal.vue?vue&type=script&lang=js& ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Modal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Modal.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Modal.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Modal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
@@ -20482,6 +20614,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/Modal.vue?vue&type=template&id=53ab54d2&scoped=true&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/components/Modal.vue?vue&type=template&id=53ab54d2&scoped=true& ***!
+  \**************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Modal_vue_vue_type_template_id_53ab54d2_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Modal_vue_vue_type_template_id_53ab54d2_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Modal_vue_vue_type_template_id_53ab54d2_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Modal.vue?vue&type=template&id=53ab54d2&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Modal.vue?vue&type=template&id=53ab54d2&scoped=true&");
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/App.vue?vue&type=template&id=f348271a&scoped=true&":
 /*!****************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/App.vue?vue&type=template&id=f348271a&scoped=true& ***!
@@ -20498,49 +20647,202 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("header", { staticClass: "px-4 py-8" }, [
-      _c(
-        "div",
-        { staticClass: "flex justify-between items-center container mx-auto" },
-        [
-          _c(
-            "div",
-            { staticClass: "flex items-center space-x-8" },
-            [
-              _c("Logo"),
-              _vm._v(" "),
-              _c("div", { staticClass: "relative" }, [
-                _c(
-                  "span",
-                  {
-                    staticClass:
-                      "absolute inset-y-0 left-0 flex items-center ml-4"
-                  },
-                  [
-                    _c(
-                      "svg",
-                      {
-                        staticClass: "w-5 h-5 text-gray-400",
-                        attrs: {
-                          xmlns: "http://www.w3.org/2000/svg",
-                          fill: "none",
-                          viewBox: "0 0 24 24",
-                          stroke: "currentColor"
-                        }
-                      },
-                      [
-                        _c("path", {
+  return _c(
+    "div",
+    [
+      _c("header", { staticClass: "px-4 py-8" }, [
+        _c(
+          "div",
+          {
+            staticClass: "flex justify-between items-center container mx-auto"
+          },
+          [
+            _c(
+              "div",
+              { staticClass: "flex items-center space-x-8" },
+              [
+                _c("Logo"),
+                _vm._v(" "),
+                _c("div", { staticClass: "relative" }, [
+                  _c(
+                    "span",
+                    {
+                      staticClass:
+                        "absolute inset-y-0 left-0 flex items-center ml-4"
+                    },
+                    [
+                      _c(
+                        "svg",
+                        {
+                          staticClass: "w-5 h-5 text-gray-400",
                           attrs: {
-                            "stroke-linecap": "round",
-                            "stroke-linejoin": "round",
-                            "stroke-width": "2",
-                            d: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                            xmlns: "http://www.w3.org/2000/svg",
+                            fill: "none",
+                            viewBox: "0 0 24 24",
+                            stroke: "currentColor"
                           }
-                        })
+                        },
+                        [
+                          _c("path", {
+                            attrs: {
+                              "stroke-linecap": "round",
+                              "stroke-linejoin": "round",
+                              "stroke-width": "2",
+                              d: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                            }
+                          })
+                        ]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.search,
+                        expression: "search"
+                      }
+                    ],
+                    staticClass:
+                      "w-72 border border-gray-300 focus:border-indigo-300 focus:outline-none focus:ring-4 focus:ring-indigo-200 leading-7 pl-10 pr-4 py-3 rounded-xl text-sm",
+                    attrs: { type: "text", placeholder: "Search by name" },
+                    domProps: { value: _vm.search },
+                    on: {
+                      input: [
+                        function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.search = $event.target.value
+                        },
+                        _vm.getImages
                       ]
-                    )
-                  ]
+                    }
+                  })
+                ])
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c("div", [
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "bg-indigo-500 hover:bg-indigo-400 border border-indigo-500 font-semibold text-white py-3 px-5 shadow-sm rounded-xl focus:outline-none focus:ring-4 focus:ring-indigo-200 leading-7 whitespace-nowrap",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      _vm.showAddPhotoModal = true
+                    }
+                  }
+                },
+                [_vm._v("\n                    Add a photo\n                ")]
+              )
+            ])
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("main", { staticClass: "px-4" }, [
+        _c(
+          "div",
+          { staticClass: "container mx-auto" },
+          [
+            _c(
+              "masonry",
+              {
+                attrs: {
+                  cols: { default: 4, 1024: 3, 768: 2, 640: 1 },
+                  gutter: 46
+                }
+              },
+              _vm._l(_vm.images, function(image, index) {
+                return _c("div", { key: image.id }, [
+                  _c(
+                    "a",
+                    {
+                      staticClass:
+                        "relative block group overflow-hidden rounded-2xl shadow-xl mb-12",
+                      attrs: { href: "#" }
+                    },
+                    [
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "opacity-0 group-hover:opacity-100 p-6 absolute inset-0 flex items-end bg-gray-900 bg-opacity-80 text-sm text-white transition-all duration-300"
+                        },
+                        [
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "absolute top-4 right-4 px-2 py-1 text-xs text-red-400 border border-red-400 rounded-full hover:bg-red-400 hover:text-white transition duration-300",
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.onShowDeletePhotoModal(index)
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                Delete\n                            "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("div", [_vm._v(_vm._s(image.label))])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("img", { attrs: { src: image.url, alt: image.label } })
+                    ]
+                  )
+                ])
+              }),
+              0
+            )
+          ],
+          1
+        )
+      ]),
+      _vm._v(" "),
+      _c(
+        "Modal",
+        {
+          attrs: { open: _vm.showAddPhotoModal },
+          on: { close: _vm.closeAddPhotoModal }
+        },
+        [
+          _c("h2", { staticClass: "text-2xl text-gray-900" }, [
+            _vm._v("\n            Add new photo\n        ")
+          ]),
+          _vm._v(" "),
+          _c(
+            "form",
+            {
+              staticClass: "mt-8",
+              attrs: { action: "" },
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                }
+              }
+            },
+            [
+              _c("div", [
+                _c(
+                  "label",
+                  {
+                    staticClass: "block text-xs text-gray-600",
+                    attrs: { for: "label" }
+                  },
+                  [_vm._v("Label")]
                 ),
                 _vm._v(" "),
                 _c("input", {
@@ -20548,328 +20850,216 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.search,
-                      expression: "search"
+                      value: _vm.label,
+                      expression: "label"
+                    }
+                  ],
+                  ref: "labelInput",
+                  staticClass:
+                    "mt-1 w-full px-3 py-2 leading-6 border rounded-md shadow-sm",
+                  class: { "border-red-400": _vm.formErrors.label },
+                  attrs: {
+                    type: "text",
+                    id: "label",
+                    name: "label",
+                    autofocus: "",
+                    required: ""
+                  },
+                  domProps: { value: _vm.label },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.label = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm.formErrors.label
+                  ? _c(
+                      "div",
+                      { staticClass: "mt-1 font-medium text-xs text-red-400" },
+                      [
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(_vm.formErrors.label[0]) +
+                            "\n                "
+                        )
+                      ]
+                    )
+                  : _vm._e()
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "mt-4" }, [
+                _c(
+                  "label",
+                  {
+                    staticClass: "block text-xs text-gray-600",
+                    attrs: { for: "url" }
+                  },
+                  [_vm._v("Photo URL")]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.url,
+                      expression: "url"
                     }
                   ],
                   staticClass:
-                    "w-72 border border-gray-300 focus:border-indigo-300 focus:outline-none focus:ring-4 focus:ring-indigo-200 leading-7 pl-10 pr-4 py-3 rounded-xl text-sm",
-                  attrs: { type: "text", placeholder: "Search by name" },
-                  domProps: { value: _vm.search },
+                    "mt-1 w-full px-3 py-2 leading-6 border rounded-md shadow-sm",
+                  class: { "border-red-400": _vm.formErrors.url },
+                  attrs: { type: "text", id: "url", name: "url", required: "" },
+                  domProps: { value: _vm.url },
                   on: {
-                    input: [
-                      function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.search = $event.target.value
-                      },
-                      _vm.getImages
-                    ]
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.url = $event.target.value
+                    }
                   }
-                })
+                }),
+                _vm._v(" "),
+                _vm.formErrors.url
+                  ? _c(
+                      "div",
+                      { staticClass: "mt-1 font-medium text-xs text-red-400" },
+                      [
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(_vm.formErrors.url[0]) +
+                            "\n                "
+                        )
+                      ]
+                    )
+                  : _vm._e()
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "flex justify-end mt-4 space-x-4" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "bg-white hover:bg-gray-200 border border-white font-semibold text-gray-400 py-3 px-5 rounded-xl focus:outline-none focus:ring-4 focus:ring-gray-100 leading-7 whitespace-nowrap",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.closeAddPhotoModal($event)
+                      }
+                    }
+                  },
+                  [_vm._v("\n                    Cancel\n                ")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "bg-indigo-500 hover:bg-indigo-400 border border-indigo-500 font-semibold text-white py-3 px-5 shadow-sm rounded-xl focus:outline-none focus:ring-4 focus:ring-indigo-200 leading-7 whitespace-nowrap",
+                    attrs: { type: "submit" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.onAddPhoto($event)
+                      }
+                    }
+                  },
+                  [_vm._v("\n                    Submit\n                ")]
+                )
               ])
-            ],
-            1
-          ),
+            ]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "Modal",
+        {
+          attrs: { open: _vm.showDeletePhotoModal },
+          on: { close: _vm.closeDeletePhotoModal }
+        },
+        [
+          _c("h2", { staticClass: "text-2xl text-gray-900" }, [
+            _vm._v("\n            Delete photo\n        ")
+          ]),
           _vm._v(" "),
-          _c("div", [
+          _c("div", { staticClass: "mt-4" }, [
+            _c("p", { staticClass: "text-gray-600" }, [
+              _vm._v(
+                "For security reasons we need you to enter your password to delete this photo"
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "mt-4" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.deletePassword,
+                  expression: "deletePassword"
+                }
+              ],
+              staticClass:
+                "mt-1 w-full px-3 py-2 leading-6 border rounded-md shadow-sm",
+              attrs: { type: "password", required: "" },
+              domProps: { value: _vm.deletePassword },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.deletePassword = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "flex justify-end mt-4 space-x-4" }, [
             _c(
               "button",
               {
                 staticClass:
-                  "bg-indigo-500 hover:bg-indigo-400 border border-indigo-500 font-semibold text-white py-3 px-5 shadow-sm rounded-xl focus:outline-none focus:ring-4 focus:ring-indigo-200 leading-7 whitespace-nowrap",
+                  "bg-white hover:bg-gray-200 border border-white font-semibold text-gray-400 py-3 px-5 rounded-xl focus:outline-none focus:ring-4 focus:ring-gray-100 leading-7 whitespace-nowrap",
                 attrs: { type: "button" },
                 on: {
                   click: function($event) {
                     $event.preventDefault()
-                    _vm.showAddPhotoModal = true
+                    return _vm.closeDeletePhotoModal($event)
                   }
                 }
               },
-              [_vm._v("\n                    Add a photo\n                ")]
+              [_vm._v("\n                Cancel\n            ")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass:
+                  "bg-red-500 hover:bg-red-400 disabled:opacity-50 border border-red-500 font-semibold text-white py-3 px-5 shadow-sm rounded-xl focus:outline-none focus:ring-4 focus:ring-red-200 leading-7 whitespace-nowrap",
+                attrs: { type: "submit", disabled: !_vm.deletePassword.length },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.onDeletePhoto($event)
+                  }
+                }
+              },
+              [_vm._v("\n                Delete\n            ")]
             )
           ])
         ]
       )
-    ]),
-    _vm._v(" "),
-    _c("main", { staticClass: "px-4" }, [
-      _c(
-        "div",
-        { staticClass: "container mx-auto" },
-        [
-          _c(
-            "masonry",
-            {
-              attrs: {
-                cols: { default: 4, 1024: 3, 768: 2, 640: 1 },
-                gutter: 46
-              }
-            },
-            _vm._l(_vm.images, function(image, index) {
-              return _c("div", { key: image.id }, [
-                _c(
-                  "a",
-                  {
-                    staticClass:
-                      "relative block group overflow-hidden rounded-2xl shadow-xl mb-12",
-                    attrs: { href: "#" }
-                  },
-                  [
-                    _c(
-                      "div",
-                      {
-                        staticClass:
-                          "opacity-0 group-hover:opacity-100 p-6 absolute inset-0 flex items-end bg-gray-900 bg-opacity-80 text-sm text-white transition-all duration-300"
-                      },
-                      [
-                        _c(
-                          "button",
-                          {
-                            staticClass:
-                              "absolute top-4 right-4 px-2 py-1 text-xs text-red-400 border border-red-400 rounded-full hover:bg-red-400 hover:text-white transition duration-300",
-                            on: {
-                              click: function($event) {
-                                $event.preventDefault()
-                                return _vm.onDeletePhoto(index)
-                              }
-                            }
-                          },
-                          [
-                            _vm._v(
-                              "\n                                Delete\n                            "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("div", [_vm._v(_vm._s(image.label))])
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c("img", { attrs: { src: image.url, alt: image.label } })
-                  ]
-                )
-              ])
-            }),
-            0
-          )
-        ],
-        1
-      )
-    ]),
-    _vm._v(" "),
-    _vm.showAddPhotoModal
-      ? _c(
-          "div",
-          {
-            staticClass:
-              "fixed bg-gray-900 bg-opacity-80 inset-0 flex justify-center items-center px-8 py-12",
-            on: {
-              click: function($event) {
-                $event.preventDefault()
-                return _vm.closeModal($event)
-              }
-            }
-          },
-          [
-            _c(
-              "div",
-              {
-                staticClass:
-                  "relative bg-white w-full max-w-lg rounded-xl shadow-2xl p-8",
-                on: {
-                  click: function($event) {
-                    $event.stopPropagation()
-                  }
-                }
-              },
-              [
-                _c("h2", { staticClass: "text-2xl text-gray-900" }, [
-                  _vm._v("\n                Add new photo\n            ")
-                ]),
-                _vm._v(" "),
-                _c(
-                  "form",
-                  {
-                    staticClass: "mt-8",
-                    attrs: { action: "" },
-                    on: {
-                      submit: function($event) {
-                        $event.preventDefault()
-                      }
-                    }
-                  },
-                  [
-                    _c("div", [
-                      _c(
-                        "label",
-                        {
-                          staticClass: "block text-xs text-gray-600",
-                          attrs: { for: "label" }
-                        },
-                        [_vm._v("Label")]
-                      ),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.label,
-                            expression: "label"
-                          }
-                        ],
-                        ref: "labelInput",
-                        staticClass:
-                          "mt-1 w-full px-3 py-2 leading-6 border rounded-md shadow-sm",
-                        class: { "border-red-400": _vm.formErrors.label },
-                        attrs: {
-                          type: "text",
-                          id: "label",
-                          name: "label",
-                          autofocus: "",
-                          required: ""
-                        },
-                        domProps: { value: _vm.label },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.label = $event.target.value
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _vm.formErrors.label
-                        ? _c(
-                            "div",
-                            {
-                              staticClass:
-                                "mt-1 font-medium text-xs text-red-400"
-                            },
-                            [
-                              _vm._v(
-                                "\n                        " +
-                                  _vm._s(_vm.formErrors.label[0]) +
-                                  "\n                    "
-                              )
-                            ]
-                          )
-                        : _vm._e()
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "mt-4" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass: "block text-xs text-gray-600",
-                          attrs: { for: "url" }
-                        },
-                        [_vm._v("Photo URL")]
-                      ),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.url,
-                            expression: "url"
-                          }
-                        ],
-                        staticClass:
-                          "mt-1 w-full px-3 py-2 leading-6 border rounded-md shadow-sm",
-                        class: { "border-red-400": _vm.formErrors.url },
-                        attrs: {
-                          type: "text",
-                          id: "url",
-                          name: "url",
-                          required: ""
-                        },
-                        domProps: { value: _vm.url },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.url = $event.target.value
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _vm.formErrors.url
-                        ? _c(
-                            "div",
-                            {
-                              staticClass:
-                                "mt-1 font-medium text-xs text-red-400"
-                            },
-                            [
-                              _vm._v(
-                                "\n                        " +
-                                  _vm._s(_vm.formErrors.url[0]) +
-                                  "\n                    "
-                              )
-                            ]
-                          )
-                        : _vm._e()
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "flex justify-end mt-4 space-x-4" },
-                      [
-                        _c(
-                          "button",
-                          {
-                            staticClass:
-                              "bg-white hover:bg-gray-200 border border-white font-semibold text-gray-400 py-3 px-5 rounded-xl focus:outline-none focus:ring-4 focus:ring-gray-100 leading-7 whitespace-nowrap",
-                            attrs: { type: "button" },
-                            on: {
-                              click: function($event) {
-                                $event.preventDefault()
-                                _vm.showAddPhotoModal = false
-                              }
-                            }
-                          },
-                          [
-                            _vm._v(
-                              "\n                        Cancel\n                    "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass:
-                              "bg-indigo-500 hover:bg-indigo-400 border border-indigo-500 font-semibold text-white py-3 px-5 shadow-sm rounded-xl focus:outline-none focus:ring-4 focus:ring-indigo-200 leading-7 whitespace-nowrap",
-                            attrs: { type: "submit" },
-                            on: {
-                              click: function($event) {
-                                $event.preventDefault()
-                                return _vm.onAddPhoto($event)
-                              }
-                            }
-                          },
-                          [
-                            _vm._v(
-                              "\n                        Submit\n                    "
-                            )
-                          ]
-                        )
-                      ]
-                    )
-                  ]
-                )
-              ]
-            )
-          ]
-        )
-      : _vm._e()
-  ])
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -20923,6 +21113,61 @@ var render = function() {
       _vm._v("\n        My Unsplash\n    ")
     ])
   ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Modal.vue?vue&type=template&id=53ab54d2&scoped=true&":
+/*!*****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Modal.vue?vue&type=template&id=53ab54d2&scoped=true& ***!
+  \*****************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => /* binding */ render,
+/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm.open
+    ? _c(
+        "div",
+        {
+          staticClass:
+            "fixed bg-gray-900 bg-opacity-80 inset-0 flex justify-center items-center px-8 py-12",
+          on: {
+            click: function($event) {
+              $event.preventDefault()
+              return _vm.onClose($event)
+            }
+          }
+        },
+        [
+          _c(
+            "div",
+            {
+              staticClass:
+                "relative bg-white w-full max-w-lg rounded-xl shadow-2xl p-8",
+              on: {
+                click: function($event) {
+                  $event.stopPropagation()
+                }
+              }
+            },
+            [_vm._t("default")],
+            2
+          )
+        ]
+      )
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
