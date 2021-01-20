@@ -16,4 +16,19 @@ class ImageController extends Controller
             'images' => $images
         ]);
     }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'label' => 'required|string|max:256',
+            'url' => 'required|string|max:256',
+        ]);
+
+        $image = Image::create([
+            'label' => $request->label,
+            'url' => $request->url,
+        ]);
+
+        return response()->json($image);
+    }
 }
