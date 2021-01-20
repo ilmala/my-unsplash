@@ -1977,12 +1977,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "App",
   data: function data() {
     return {
       images: [],
+      search: '',
       label: '',
       url: '',
       showAddPhotoModal: false,
@@ -2004,7 +2008,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return axios.get('/images');
+                return axios.get('/images?search=' + _this.search);
 
               case 2:
                 _yield$axios$get = _context.sent;
@@ -20501,9 +20505,29 @@ var render = function() {
                 ),
                 _vm._v(" "),
                 _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.search,
+                      expression: "search"
+                    }
+                  ],
                   staticClass:
                     "w-72 border border-gray-300 focus:border-indigo-300 focus:outline-none focus:ring-4 focus:ring-indigo-200 leading-7 pl-10 pr-4 py-3 rounded-xl text-sm",
-                  attrs: { type: "text", placeholder: "Search by name" }
+                  attrs: { type: "text", placeholder: "Search by name" },
+                  domProps: { value: _vm.search },
+                  on: {
+                    input: [
+                      function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.search = $event.target.value
+                      },
+                      _vm.getImages
+                    ]
+                  }
                 })
               ])
             ],
@@ -20550,7 +20574,7 @@ var render = function() {
                   "a",
                   {
                     staticClass:
-                      "relative block overflow-hidden rounded-2xl mb-12",
+                      "relative block group overflow-hidden rounded-2xl shadow-xl mb-12",
                     attrs: { href: "#" }
                   },
                   [
@@ -20558,14 +20582,14 @@ var render = function() {
                       "div",
                       {
                         staticClass:
-                          "hidden hover:block p-6 absolute inset-0 flex items-end bg-gray-900 opacity-80 text-sm text-white"
+                          "opacity-0 group-hover:opacity-100 p-6 absolute inset-0 flex items-end bg-gray-900 bg-opacity-80 text-sm text-white transition-all duration-300"
                       },
                       [
                         _c(
                           "button",
                           {
                             staticClass:
-                              "absolute top-4 right-4 px-2 py-1 text-xs text-red-400 border border-red-400 rounded-full hover:bg-red-400 hover:text-white"
+                              "absolute top-4 right-4 px-2 py-1 text-xs text-red-400 border border-red-400 rounded-full hover:bg-red-400 hover:text-white transition duration-300"
                           },
                           [
                             _vm._v(

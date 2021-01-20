@@ -15,7 +15,10 @@
                     </span>
                         <input type="text"
                                class="w-72 border border-gray-300 focus:border-indigo-300 focus:outline-none focus:ring-4 focus:ring-indigo-200 leading-7 pl-10 pr-4 py-3 rounded-xl text-sm"
-                               placeholder="Search by name">
+                               placeholder="Search by name"
+                               v-model="search"
+                               @input="getImages"
+                        >
                     </div>
                 </div>
 
@@ -37,11 +40,11 @@
                     :gutter="46"
                 >
                     <div v-for="image in images" :key="image.id">
-                        <a href="#" class="relative block overflow-hidden rounded-2xl mb-12">
+                        <a href="#" class="relative block group overflow-hidden rounded-2xl shadow-xl mb-12">
                             <div
-                                class="hidden hover:block p-6 absolute inset-0 flex items-end bg-gray-900 opacity-80 text-sm text-white">
+                                class="opacity-0 group-hover:opacity-100 p-6 absolute inset-0 flex items-end bg-gray-900 bg-opacity-80 text-sm text-white transition-all duration-300">
                                 <button
-                                    class="absolute top-4 right-4 px-2 py-1 text-xs text-red-400 border border-red-400 rounded-full hover:bg-red-400 hover:text-white">
+                                    class="absolute top-4 right-4 px-2 py-1 text-xs text-red-400 border border-red-400 rounded-full hover:bg-red-400 hover:text-white transition duration-300">
                                     Delete
                                 </button>
                                 <div>{{ image.label }}</div>
@@ -118,6 +121,7 @@ export default {
     data() {
         return {
             images: [],
+            search: '',
             label: '',
             url: '',
             showAddPhotoModal: false,
@@ -129,7 +133,7 @@ export default {
     },
     methods: {
         async getImages() {
-            let {data} = await axios.get('/images');
+            let {data} = await axios.get('/images?search='+this.search);
             this.images = data.images.data;
         },
         async onAddPhoto() {
