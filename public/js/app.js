@@ -1920,12 +1920,69 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "App",
   data: function data() {
     return {
-      images: []
+      images: [],
+      label: '',
+      url: '',
+      showAddPhotoModal: false,
+      formErrors: {}
     };
   },
   mounted: function mounted() {
@@ -1948,16 +2005,69 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 2:
                 _yield$axios$get = _context.sent;
                 data = _yield$axios$get.data;
-                console.log(data.images);
                 _this.images = data.images.data;
 
-              case 6:
+              case 5:
               case "end":
                 return _context.stop();
             }
           }
         }, _callee);
       }))();
+    },
+    onAddPhoto: function onAddPhoto() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var _yield$axios$post, data;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _this2.formErrors = {};
+                _context2.prev = 1;
+                _context2.next = 4;
+                return axios.post('/images', {
+                  label: _this2.label,
+                  url: _this2.url
+                });
+
+              case 4:
+                _yield$axios$post = _context2.sent;
+                data = _yield$axios$post.data;
+
+                _this2.images.unshift(data);
+
+                _this2.closeModal();
+
+                _context2.next = 13;
+                break;
+
+              case 10:
+                _context2.prev = 10;
+                _context2.t0 = _context2["catch"](1);
+
+                if (_context2.t0.response) {
+                  _this2.formErrors = _context2.t0.response.data.errors;
+                } else {
+                  _this2.closeModal();
+
+                  console.log(_context2.t0.message);
+                }
+
+              case 13:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, null, [[1, 10]]);
+      }))();
+    },
+    closeModal: function closeModal() {
+      this.label = '';
+      this.url = '';
+      this.showAddPhotoModal = false;
     }
   },
   components: {
@@ -20396,7 +20506,23 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _vm._m(0)
+          _c("div", [
+            _c(
+              "button",
+              {
+                staticClass:
+                  "bg-indigo-500 hover:bg-indigo-400 border border-indigo-500 font-semibold text-white py-3 px-5 shadow-sm rounded-xl focus:outline-none focus:ring-4 focus:ring-indigo-200 leading-7 whitespace-nowrap",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    _vm.showAddPhotoModal = true
+                  }
+                }
+              },
+              [_vm._v("\n                    Add a photo\n                ")]
+            )
+          ])
         ]
       )
     ]),
@@ -20458,27 +20584,198 @@ var render = function() {
         ],
         1
       )
-    ])
+    ]),
+    _vm._v(" "),
+    _vm.showAddPhotoModal
+      ? _c(
+          "div",
+          {
+            staticClass:
+              "fixed bg-gray-900 bg-opacity-30 inset-0 flex justify-center items-center px-8 py-12"
+          },
+          [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "relative bg-white w-full max-w-lg rounded-xl shadow-2xl p-8"
+              },
+              [
+                _c("h2", { staticClass: "text-2xl text-gray-900" }, [
+                  _vm._v("\n                Add new photo\n            ")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "form",
+                  {
+                    staticClass: "mt-8",
+                    attrs: { action: "" },
+                    on: {
+                      submit: function($event) {
+                        $event.preventDefault()
+                      }
+                    }
+                  },
+                  [
+                    _c("div", [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "block text-xs text-gray-600",
+                          attrs: { for: "label" }
+                        },
+                        [_vm._v("Label")]
+                      ),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.label,
+                            expression: "label"
+                          }
+                        ],
+                        staticClass:
+                          "mt-1 w-full px-3 py-2 leading-6 border rounded-md shadow-sm",
+                        class: { "border-red-400": _vm.formErrors.label },
+                        attrs: { type: "text", id: "label", name: "label" },
+                        domProps: { value: _vm.label },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.label = $event.target.value
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.formErrors.label
+                        ? _c(
+                            "div",
+                            {
+                              staticClass:
+                                "mt-1 font-medium text-xs text-red-400"
+                            },
+                            [
+                              _vm._v(
+                                "\n                        " +
+                                  _vm._s(_vm.formErrors.label[0]) +
+                                  "\n                    "
+                              )
+                            ]
+                          )
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "mt-4" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "block text-xs text-gray-600",
+                          attrs: { for: "url" }
+                        },
+                        [_vm._v("Photo URL")]
+                      ),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.url,
+                            expression: "url"
+                          }
+                        ],
+                        staticClass:
+                          "mt-1 w-full px-3 py-2 leading-6 border rounded-md shadow-sm",
+                        class: { "border-red-400": _vm.formErrors.url },
+                        attrs: { type: "text", id: "url", name: "url" },
+                        domProps: { value: _vm.url },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.url = $event.target.value
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.formErrors.url
+                        ? _c(
+                            "div",
+                            {
+                              staticClass:
+                                "mt-1 font-medium text-xs text-red-400"
+                            },
+                            [
+                              _vm._v(
+                                "\n                        " +
+                                  _vm._s(_vm.formErrors.url[0]) +
+                                  "\n                    "
+                              )
+                            ]
+                          )
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "flex justify-end mt-4 space-x-4" },
+                      [
+                        _c(
+                          "button",
+                          {
+                            staticClass:
+                              "bg-white hover:bg-gray-200 border border-white font-semibold text-gray-600 py-3 px-5 shadow-sm rounded-xl focus:outline-none focus:ring-4 focus:ring-gray-50 leading-7 whitespace-nowrap",
+                            attrs: { type: "button" },
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                _vm.showAddPhotoModal = false
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                        Cancel\n                    "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass:
+                              "bg-indigo-500 hover:bg-indigo-400 border border-indigo-500 font-semibold text-white py-3 px-5 shadow-sm rounded-xl focus:outline-none focus:ring-4 focus:ring-indigo-200 leading-7 whitespace-nowrap",
+                            attrs: { type: "submit" },
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.onAddPhoto($event)
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                        Submit\n                    "
+                            )
+                          ]
+                        )
+                      ]
+                    )
+                  ]
+                )
+              ]
+            )
+          ]
+        )
+      : _vm._e()
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c(
-        "button",
-        {
-          staticClass:
-            "bg-indigo-500 hover:bg-indigo-400 border border-indigo-500 font-semibold text-white py-3 px-5 shadow-sm rounded-xl focus:outline-none focus:ring-4 focus:ring-indigo-200 leading-7 whitespace-nowrap",
-          attrs: { type: "button" }
-        },
-        [_vm._v("\n                    Add a photo\n                ")]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
