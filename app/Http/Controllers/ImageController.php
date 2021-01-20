@@ -31,4 +31,11 @@ class ImageController extends Controller
 
         return response()->json($image);
     }
+
+    public function destroy(Image $image)
+    {
+        $image->delete();
+
+        return response()->json(['deleted' => true]);
+    }
 }

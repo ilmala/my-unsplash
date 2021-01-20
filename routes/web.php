@@ -18,5 +18,6 @@ Route::view('/', 'home');
 
 Route::get('images', [ImageController::class, 'index'])->name('images.index');
 Route::post('images', [ImageController::class, 'store'])->name('images.store');
+Route::delete('images/{image}', [ImageController::class, 'destroy'])->name('images.destroy');
 
 
