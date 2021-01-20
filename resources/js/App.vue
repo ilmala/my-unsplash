@@ -56,8 +56,10 @@
         </main>
 
         <div v-if="showAddPhotoModal"
-             class="fixed bg-gray-900 bg-opacity-30 inset-0 flex justify-center items-center px-8 py-12">
-            <div class="relative bg-white w-full max-w-lg rounded-xl shadow-2xl p-8">
+             class="fixed bg-gray-900 bg-opacity-80 inset-0 flex justify-center items-center px-8 py-12"
+             @click.prevent="closeModal"
+        >
+            <div class="relative bg-white w-full max-w-lg rounded-xl shadow-2xl p-8" @click.stop>
                 <h2 class="text-2xl text-gray-900">
                     Add new photo
                 </h2>
@@ -65,9 +67,10 @@
                 <form class="mt-8" action="" @submit.prevent>
                     <div>
                         <label for="label" class="block text-xs text-gray-600">Label</label>
-                        <input type="text" v-model="label" id="label" name="label"
+                        <input type="text" ref="labelInput" v-model="label" id="label" name="label"
                                class="mt-1 w-full px-3 py-2 leading-6 border rounded-md shadow-sm"
                                :class="{'border-red-400': formErrors.label}"
+                               autofocus required
                         >
                         <div v-if="formErrors.label" class="mt-1 font-medium text-xs text-red-400">
                             {{ formErrors.label[0] }}
@@ -79,6 +82,7 @@
                         <input type="text" v-model="url" id="url" name="url"
                                class="mt-1 w-full px-3 py-2 leading-6 border rounded-md shadow-sm"
                                :class="{'border-red-400': formErrors.url}"
+                               required
                         >
                         <div v-if="formErrors.url" class="mt-1 font-medium text-xs text-red-400">
                             {{ formErrors.url[0] }}
@@ -87,7 +91,7 @@
 
                     <div class="flex justify-end mt-4 space-x-4">
                         <button type="button"
-                                class="bg-white hover:bg-gray-200 border border-white font-semibold text-gray-600 py-3 px-5 shadow-sm rounded-xl focus:outline-none focus:ring-4 focus:ring-gray-50 leading-7 whitespace-nowrap"
+                                class="bg-white hover:bg-gray-200 border border-white font-semibold text-gray-400 py-3 px-5 rounded-xl focus:outline-none focus:ring-4 focus:ring-gray-100 leading-7 whitespace-nowrap"
                                 @click.prevent="showAddPhotoModal=false"
                         >
                             Cancel
@@ -130,6 +134,7 @@ export default {
         },
         async onAddPhoto() {
             this.formErrors = {};
+
             try {
                 let {data} = await axios.post('/images', {
                     label: this.label,

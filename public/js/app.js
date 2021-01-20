@@ -1973,6 +1973,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "App",
@@ -20591,14 +20595,25 @@ var render = function() {
           "div",
           {
             staticClass:
-              "fixed bg-gray-900 bg-opacity-30 inset-0 flex justify-center items-center px-8 py-12"
+              "fixed bg-gray-900 bg-opacity-80 inset-0 flex justify-center items-center px-8 py-12",
+            on: {
+              click: function($event) {
+                $event.preventDefault()
+                return _vm.closeModal($event)
+              }
+            }
           },
           [
             _c(
               "div",
               {
                 staticClass:
-                  "relative bg-white w-full max-w-lg rounded-xl shadow-2xl p-8"
+                  "relative bg-white w-full max-w-lg rounded-xl shadow-2xl p-8",
+                on: {
+                  click: function($event) {
+                    $event.stopPropagation()
+                  }
+                }
               },
               [
                 _c("h2", { staticClass: "text-2xl text-gray-900" }, [
@@ -20636,10 +20651,17 @@ var render = function() {
                             expression: "label"
                           }
                         ],
+                        ref: "labelInput",
                         staticClass:
                           "mt-1 w-full px-3 py-2 leading-6 border rounded-md shadow-sm",
                         class: { "border-red-400": _vm.formErrors.label },
-                        attrs: { type: "text", id: "label", name: "label" },
+                        attrs: {
+                          type: "text",
+                          id: "label",
+                          name: "label",
+                          autofocus: "",
+                          required: ""
+                        },
                         domProps: { value: _vm.label },
                         on: {
                           input: function($event) {
@@ -20691,7 +20713,12 @@ var render = function() {
                         staticClass:
                           "mt-1 w-full px-3 py-2 leading-6 border rounded-md shadow-sm",
                         class: { "border-red-400": _vm.formErrors.url },
-                        attrs: { type: "text", id: "url", name: "url" },
+                        attrs: {
+                          type: "text",
+                          id: "url",
+                          name: "url",
+                          required: ""
+                        },
                         domProps: { value: _vm.url },
                         on: {
                           input: function($event) {
@@ -20729,7 +20756,7 @@ var render = function() {
                           "button",
                           {
                             staticClass:
-                              "bg-white hover:bg-gray-200 border border-white font-semibold text-gray-600 py-3 px-5 shadow-sm rounded-xl focus:outline-none focus:ring-4 focus:ring-gray-50 leading-7 whitespace-nowrap",
+                              "bg-white hover:bg-gray-200 border border-white font-semibold text-gray-400 py-3 px-5 rounded-xl focus:outline-none focus:ring-4 focus:ring-gray-100 leading-7 whitespace-nowrap",
                             attrs: { type: "button" },
                             on: {
                               click: function($event) {
