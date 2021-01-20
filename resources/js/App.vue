@@ -39,12 +39,14 @@
                     :cols="{default: 4, 1024: 3, 768: 2, 640: 1}"
                     :gutter="46"
                 >
-                    <div v-for="image in images" :key="image.id">
+                    <div v-for="(image,index) in images" :key="image.id">
                         <a href="#" class="relative block group overflow-hidden rounded-2xl shadow-xl mb-12">
                             <div
                                 class="opacity-0 group-hover:opacity-100 p-6 absolute inset-0 flex items-end bg-gray-900 bg-opacity-80 text-sm text-white transition-all duration-300">
                                 <button
-                                    class="absolute top-4 right-4 px-2 py-1 text-xs text-red-400 border border-red-400 rounded-full hover:bg-red-400 hover:text-white transition duration-300">
+                                    class="absolute top-4 right-4 px-2 py-1 text-xs text-red-400 border border-red-400 rounded-full hover:bg-red-400 hover:text-white transition duration-300"
+                                    @click.prevent="onDeletePhoto(index)"
+                                >
                                     Delete
                                 </button>
                                 <div>{{ image.label }}</div>
@@ -133,7 +135,7 @@ export default {
     },
     methods: {
         async getImages() {
-            let {data} = await axios.get('/images?search='+this.search);
+            let {data} = await axios.get('/images?search=' + this.search);
             this.images = data.images.data;
         },
         async onAddPhoto() {
@@ -146,13 +148,22 @@ export default {
                 });
                 this.images.unshift(data);
                 this.closeModal();
-            }catch (err) {
-                if(err.response) {
+            } catch (err) {
+                if (err.response) {
                     this.formErrors = err.response.data.errors;
-                }else{
+                } else {
                     this.closeModal();
                     console.log(err.message);
                 }
+            }
+        },
+        async onDeletePhoto(index) {
+            try {
+                let image = this.images[index];
+                let {data} = await axios.delete('/images/' + image.id);
+                this.$delete(this.images, index);
+            } catch (err) {
+                console.log(err.message);
             }
         },
         closeModal() {

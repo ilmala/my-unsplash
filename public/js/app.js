@@ -1980,6 +1980,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "App",
@@ -2070,6 +2072,43 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }
           }
         }, _callee2, null, [[1, 10]]);
+      }))();
+    },
+    onDeletePhoto: function onDeletePhoto(index) {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        var image, _yield$axios$delete, data;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.prev = 0;
+                image = _this3.images[index];
+                _context3.next = 4;
+                return axios["delete"]('/images/' + image.id);
+
+              case 4:
+                _yield$axios$delete = _context3.sent;
+                data = _yield$axios$delete.data;
+
+                _this3.$delete(_this3.images, index);
+
+                _context3.next = 12;
+                break;
+
+              case 9:
+                _context3.prev = 9;
+                _context3.t0 = _context3["catch"](0);
+                console.log(_context3.t0.message);
+
+              case 12:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, null, [[0, 9]]);
       }))();
     },
     closeModal: function closeModal() {
@@ -20568,7 +20607,7 @@ var render = function() {
                 gutter: 46
               }
             },
-            _vm._l(_vm.images, function(image) {
+            _vm._l(_vm.images, function(image, index) {
               return _c("div", { key: image.id }, [
                 _c(
                   "a",
@@ -20589,7 +20628,13 @@ var render = function() {
                           "button",
                           {
                             staticClass:
-                              "absolute top-4 right-4 px-2 py-1 text-xs text-red-400 border border-red-400 rounded-full hover:bg-red-400 hover:text-white transition duration-300"
+                              "absolute top-4 right-4 px-2 py-1 text-xs text-red-400 border border-red-400 rounded-full hover:bg-red-400 hover:text-white transition duration-300",
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.onDeletePhoto(index)
+                              }
+                            }
                           },
                           [
                             _vm._v(
