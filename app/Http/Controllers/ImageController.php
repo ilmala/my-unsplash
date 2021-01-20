@@ -10,7 +10,7 @@ class ImageController extends Controller
 {
     public function index()
     {
-        $images = Image::latest()->paginate(10);
+        $images = Image::latest()->search(request()->search)->paginate(10);
 
         return response()->json([
             'images' => $images
