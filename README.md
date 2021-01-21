@@ -8,7 +8,7 @@
 
 <div align="center">
   <h3>
-    <a href="https://{your-demo-link.your-domain}">
+    <a href="https://devchallenges-my-unsplash.herokuapp.com/">
       Demo
     </a>
     <span> | </span>
@@ -37,14 +37,18 @@
 
 ## Overview
 
-![screenshot](https://user-images.githubusercontent.com/16707738/92399059-5716eb00-f132-11ea-8b14-bcacdc8ec97b.png)
+![screenshot](screenshot1.png)
+![screenshot](screenshot2.png)
+![screenshot](screenshot3.png)
 
 Introduce your projects by taking a screenshot or a gif. Try to tell visitors a story about your project by answering:
 
-- Where can I see your demo?
-- What was your experience?
-- What have you learned/improved?
-- Your wisdom? :)
+In this project I learned:
+
+* Use Dark Mode with Tailwind.
+* Create Vue Modal with transition made with tailwind.
+
+This project was a lot of fun. It could go on for months to add new features!
 
 ### Built With
 
@@ -60,33 +64,36 @@ Introduce your projects by taking a screenshot or a gif. Try to tell visitors a 
 
 This application/site was created as a submission to a [DevChallenges](https://devchallenges.io/challenges) challenge. The [challenge](https://devchallenges.io/challenges/rYyhwJAxMfES5jNQ9YsP) was to build an application to complete the given user stories.
 
+* User can see a list of photos in the masonry layout that I have added
+* User can add a new photo to the list - the new photo should be on top of the list
+* User can search for photos by label
+* User can go hover a photo, user can see a label and a delete button
+* User can delete images
+* (optional) User when delete an image, can enter password
+* (optional) User can choose light or dark theme
+
 ## How To Use
 
 <!-- Example: -->
 
-To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
+To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com))
+for frontend. You'll need [PHP](https://www.php.net/) v7.3 or up and [Composer](https://getcomposer.org/) for backend API installed on your computer or VM.
+From your command line:
 
 ```bash
 # Clone this repository
-$ git clone https://github.com/your-user-name/your-project-name
+$ git clone https://github.com/ilmala/image-uploader
 
-# Install dependencies
-$ npm install
+# Install and compile frontend dependencies
+$ npm install && npm run dev
 
-# Run the app
-$ npm start
+# Install backend dependencies
+$ composer install
+
+# Run backend test
+$ php artisan test
 ```
-
-## Acknowledgements
-
-<!-- This section should list any articles or add-ons/plugins that helps you to complete the project. This is optional but it will help you in the future. For example: -->
-
-- [Steps to replicate a design with only HTML and CSS](https://devchallenges-blogs.web.app/how-to-replicate-design/)
-- [Node.js](https://nodejs.org/)
-- [Marked - a markdown parser](https://github.com/chjj/marked)
-
 ## Contact
 
-- Website [your-website.com](https://{your-web-site-link})
-- GitHub [@your-username](https://{github.com/your-usermame})
-- Twitter [@your-twitter](https://{twitter.com/your-username})
+- GitHub [@ilmala](https://github.com/ilmala)
+- Twitter [@lucamalattia](https://twitter.com/lucamalattia)
