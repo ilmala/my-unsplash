@@ -13,10 +13,12 @@ class Image extends Model
 
     public function scopeSearch($query, $search)
     {
-        if(empty($search)) {
+        if (empty($search)) {
             return $query;
         }
 
-        return $query->where('label', 'LIKE', "%$search%");
+        $like = config('database.default') === 'pgsql' ? 'iLIKE' : 'LIKE';
+
+        return $query->where('label', $like, "%$search%");
     }
 }

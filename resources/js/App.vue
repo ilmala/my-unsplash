@@ -218,6 +218,7 @@ export default {
         },
         clearSearch() {
             this.search = '';
+            this.getImages();
         },
         async onAddPhoto() {
             this.formErrors = {};
