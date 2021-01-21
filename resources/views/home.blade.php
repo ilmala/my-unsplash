@@ -9,11 +9,11 @@
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
 
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/app.css', true) }}" rel="stylesheet">
     </head>
     <body class="antialiased">
         <div id="app" class=""></div>
 
-        <script src="{{ asset('js/app.js') }}"></script>
+        <script src="{{ asset('js/app.js', true) }}"></script>
     </body>
 </html>
