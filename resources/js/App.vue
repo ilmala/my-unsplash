@@ -1,7 +1,8 @@
 <template>
     <div class="bg-white dark:bg-gray-900 min-h-screen">
         <header class="px-4 py-8">
-            <div class="flex justify-between items-center container mx-auto">
+            <div class="flex justify-between items-center">
+                <!-- Left nav -->
                 <div class="flex items-center space-x-8">
                     <Logo/>
 
@@ -32,6 +33,7 @@
                     </div>
                 </div>
 
+                <!-- Right nav -->
                 <div class="flex items-center space-x-2">
                     <div>
                         <button v-if="!darkMode"
@@ -56,7 +58,7 @@
                         </button>
                     </div>
                     <button type="button"
-                            class="bg-teal-500 hover:bg-teal-400 border border-teal-500 font-semibold text-white py-3 px-5 shadow-sm rounded-xl focus:outline-none focus:ring-4 focus:ring-teal-200 leading-7 whitespace-nowrap"
+                            class="bg-teal-500 hover:bg-teal-600 font-semibold text-white py-3 px-5 shadow-sm rounded-xl focus:outline-none focus:ring-4 focus:ring-teal-200 leading-7 whitespace-nowrap"
                             @click.prevent="showAddPhotoModal=true"
                     >
                         Add a photo
@@ -76,10 +78,13 @@
                             <div
                                 class="opacity-0 group-hover:opacity-100 p-6 absolute inset-0 flex items-end bg-gray-900 bg-opacity-80 text-sm text-white transition-all duration-300">
                                 <button
-                                    class="absolute top-4 right-4 px-2 py-1 text-xs text-red-400 border border-red-400 rounded-full hover:bg-red-400 hover:text-white transition duration-300"
+                                    class="absolute top-4 right-4 inline-flex items-center space-x-1 px-3 py-1 font-semibold text-xs text-red-400 leading-6 border border-red-400 rounded-full hover:bg-red-400 hover:text-white transition duration-300 focus:outline-none focus:ring-4 focus:ring-gray-500"
                                     @click.prevent="onShowDeletePhotoModal(index)"
                                 >
-                                    Delete
+                                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                    </svg>
+                                    <span>Delete</span>
                                 </button>
                                 <div class="">{{ image.label }}</div>
                             </div>
@@ -92,16 +97,22 @@
             </div>
         </main>
 
+        <footer class="px-8 py-12 text-center">
+            <p class="text-gray-400 text-sm dark:text-gray-700">
+                Created by <a class="text-teal-500 dark:text-teal-700 hover:underline" href="https://github.com/ilmala">@ilmala</a>
+            </p>
+        </footer>
+
         <Modal :open="showAddPhotoModal" @close="closeAddPhotoModal">
-            <h2 class="text-2xl text-gray-900">
+            <h2 class="font-semibold text-2xl text-gray-900">
                 Add new photo
             </h2>
 
             <form class="mt-8" action="" @submit.prevent>
                 <div>
-                    <label for="label" class="block text-xs text-gray-600">Label</label>
+                    <label for="label" class="block text-sm text-gray-500">Label</label>
                     <input type="text" ref="labelInput" v-model="label" id="label" name="label"
-                           class="mt-1 w-full px-3 py-2 leading-6 border rounded-md shadow-sm"
+                           class="mt-1 w-full px-3 py-3 leading-6 text-lg bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
                            :class="{'border-red-400': formErrors.label}"
                            autofocus required
                     >
@@ -111,9 +122,9 @@
                 </div>
 
                 <div class="mt-4">
-                    <label for="url" class="block text-xs text-gray-600">Photo URL</label>
+                    <label for="url" class="block text-sm text-gray-500">Photo URL</label>
                     <input type="text" v-model="url" id="url" name="url"
-                           class="mt-1 w-full px-3 py-2 leading-6 border rounded-md shadow-sm"
+                           class="mt-1 w-full px-3 py-3 leading-6 text-lg bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
                            :class="{'border-red-400': formErrors.url}"
                            required
                     >
@@ -124,14 +135,14 @@
 
                 <div class="flex justify-end mt-4 space-x-4">
                     <button type="button"
-                            class="bg-white hover:bg-gray-200 border border-white font-semibold text-gray-400 py-3 px-5 rounded-xl focus:outline-none focus:ring-4 focus:ring-gray-100 leading-7 whitespace-nowrap"
+                            class="bg-white hover:bg-gray-200 border border-white font-semibold text-gray-400 hover:text-gray-700 py-3 px-5 rounded-xl focus:outline-none focus:ring-4 focus:ring-gray-100 leading-7 whitespace-nowrap"
                             @click.prevent="closeAddPhotoModal"
                     >
                         Cancel
                     </button>
 
                     <button type="submit"
-                            class="bg-teal-500 hover:bg-teal-400 border border-teal-500 font-semibold text-white py-3 px-5 shadow-sm rounded-xl focus:outline-none focus:ring-4 focus:ring-teal-200 leading-7 whitespace-nowrap"
+                            class="bg-teal-500 hover:bg-teal-600 font-semibold text-white py-3 px-5 shadow-sm rounded-xl focus:outline-none focus:ring-4 focus:ring-teal-200 leading-7 whitespace-nowrap"
                             @click.prevent="onAddPhoto"
                     >
                         Submit
@@ -141,7 +152,7 @@
         </Modal>
 
         <Modal :open="showDeletePhotoModal" @close="closeDeletePhotoModal">
-            <h2 class="text-2xl text-gray-900">
+            <h2 class="font-semibold text-2xl text-gray-900">
                 Delete photo
             </h2>
 
@@ -157,7 +168,7 @@
 
             <div class="flex justify-end mt-4 space-x-4">
                 <button type="button"
-                        class="bg-white hover:bg-gray-200 border border-white font-semibold text-gray-400 py-3 px-5 rounded-xl focus:outline-none focus:ring-4 focus:ring-gray-100 leading-7 whitespace-nowrap"
+                        class="bg-white hover:bg-gray-200 border border-white font-semibold text-gray-400 hover:text-gray-700 py-3 px-5 rounded-xl focus:outline-none focus:ring-4 focus:ring-gray-100 leading-7 whitespace-nowrap"
                         @click.prevent="closeDeletePhotoModal"
                 >
                     Cancel
@@ -198,7 +209,7 @@ export default {
     },
     mounted() {
         this.getImages();
-        this.setDarkMode(true);
+        //this.setDarkMode(true);
     },
     methods: {
         async getImages() {
