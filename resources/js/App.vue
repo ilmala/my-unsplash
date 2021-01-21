@@ -36,11 +36,11 @@
         <main class="px-4">
             <div class="container mx-auto">
                 <masonry
-                    :cols="{default: 4, 1024: 3, 768: 2, 640: 1}"
-                    :gutter="46"
+                    :cols="{default: 5, 1260: 4, 960: 3, 780: 2}"
+                    :gutter="16"
                 >
                     <div v-for="(image,index) in images" :key="image.id">
-                        <a href="#" class="relative block group overflow-hidden rounded-2xl shadow-xl mb-12">
+                        <a href="#" class="relative block group overflow-hidden rounded-2xl shadow-xl mb-6">
                             <div
                                 class="opacity-0 group-hover:opacity-100 p-6 absolute inset-0 flex items-end bg-gray-900 bg-opacity-80 text-sm text-white transition-all duration-300">
                                 <button
@@ -49,7 +49,7 @@
                                 >
                                     Delete
                                 </button>
-                                <div>{{ image.label }}</div>
+                                <div class="">{{ image.label }}</div>
                             </div>
                             <img
                                 :src="image.url"
@@ -178,12 +178,12 @@ export default {
                     url: this.url
                 });
                 this.images.unshift(data);
-                this.closeModal();
+                this.closeAddPhotoModal();
             } catch (err) {
                 if (err.response) {
                     this.formErrors = err.response.data.errors;
                 } else {
-                    this.closeModal();
+                    this.closeAddPhotoModal();
                     console.log(err.message);
                 }
             }

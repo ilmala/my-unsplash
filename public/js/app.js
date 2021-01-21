@@ -2081,7 +2081,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 _this2.images.unshift(data);
 
-                _this2.closeModal();
+                _this2.closeAddPhotoModal();
 
                 _context2.next = 13;
                 break;
@@ -2093,7 +2093,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 if (_context2.t0.response) {
                   _this2.formErrors = _context2.t0.response.data.errors;
                 } else {
-                  _this2.closeModal();
+                  _this2.closeAddPhotoModal();
 
                   console.log(_context2.t0.message);
                 }
@@ -2189,6 +2189,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Logo"
 });
@@ -2206,6 +2208,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -20756,8 +20779,8 @@ var render = function() {
               "masonry",
               {
                 attrs: {
-                  cols: { default: 4, 1024: 3, 768: 2, 640: 1 },
-                  gutter: 46
+                  cols: { default: 5, 1260: 4, 960: 3, 780: 2 },
+                  gutter: 16
                 }
               },
               _vm._l(_vm.images, function(image, index) {
@@ -20766,7 +20789,7 @@ var render = function() {
                     "a",
                     {
                       staticClass:
-                        "relative block group overflow-hidden rounded-2xl shadow-xl mb-12",
+                        "relative block group overflow-hidden rounded-2xl shadow-xl mb-6",
                       attrs: { href: "#" }
                     },
                     [
@@ -20796,7 +20819,7 @@ var render = function() {
                             ]
                           ),
                           _vm._v(" "),
-                          _c("div", [_vm._v(_vm._s(image.label))])
+                          _c("div", {}, [_vm._v(_vm._s(image.label))])
                         ]
                       ),
                       _vm._v(" "),
@@ -21086,30 +21109,39 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "flex items-center space-x-2" }, [
     _c(
-      "svg",
+      "div",
       {
-        staticClass: "w-8 h-8 text-gray-400",
-        attrs: {
-          xmlns: "http://www.w3.org/2000/svg",
-          fill: "none",
-          viewBox: "0 0 24 24",
-          stroke: "currentColor"
-        }
+        staticClass:
+          "bg-teal-500 w-10 h-10 rounded-full flex justify-center items-center flex-shrink-0"
       },
       [
-        _c("path", {
-          attrs: {
-            "stroke-linecap": "round",
-            "stroke-linejoin": "round",
-            "stroke-width": "2",
-            d:
-              "M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-          }
-        })
+        _c(
+          "svg",
+          {
+            staticClass: "w-6 h-6 text-teal-50",
+            attrs: {
+              xmlns: "http://www.w3.org/2000/svg",
+              fill: "none",
+              viewBox: "0 0 24 24",
+              stroke: "currentColor"
+            }
+          },
+          [
+            _c("path", {
+              attrs: {
+                "stroke-linecap": "round",
+                "stroke-linejoin": "round",
+                "stroke-width": "2",
+                d:
+                  "M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+              }
+            })
+          ]
+        )
       ]
     ),
     _vm._v(" "),
-    _c("div", { staticClass: "font-bold text-sm text-gray-800" }, [
+    _c("div", { staticClass: "hidden font-black text-sm text-gray-800" }, [
       _vm._v("\n        My Unsplash\n    ")
     ])
   ])
@@ -21137,37 +21169,84 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.open
-    ? _c(
-        "div",
+  return _c(
+    "div",
+    [
+      _c(
+        "transition",
         {
-          staticClass:
-            "fixed bg-gray-900 bg-opacity-80 inset-0 flex justify-center items-center px-8 py-12",
-          on: {
-            click: function($event) {
-              $event.preventDefault()
-              return _vm.onClose($event)
-            }
+          attrs: {
+            "enter-active-class":
+              "transition-all duration-100 ease-out transform",
+            "leave-active-class":
+              "transition-all duration-100 ease-in transform",
+            "enter-class": "opacity-0",
+            "enter-to-class": "opacity-100",
+            "leave-class": "opacity-100",
+            "leave-to-class": "opacity-0"
           }
         },
         [
-          _c(
-            "div",
-            {
-              staticClass:
-                "relative bg-white w-full max-w-lg rounded-xl shadow-2xl p-8",
-              on: {
-                click: function($event) {
-                  $event.stopPropagation()
-                }
-              }
-            },
-            [_vm._t("default")],
-            2
-          )
+          _vm.open
+            ? _c("div", {
+                staticClass:
+                  "origin-top fixed z-40 inset-0 bg-gray-900 bg-opacity-70"
+              })
+            : _vm._e()
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "transition",
+        {
+          attrs: {
+            "enter-active-class":
+              "transition-all duration-200 ease-out transform",
+            "leave-active-class":
+              "transition-all duration-100 ease-in transform",
+            "enter-class": "opacity-0 scale-90",
+            "enter-to-class": "opacity-100 scale-100",
+            "leave-class": "opacity-100 scale-100",
+            "leave-to-class": "opacity-0 scale-90"
+          }
+        },
+        [
+          _vm.open
+            ? _c(
+                "div",
+                {
+                  staticClass:
+                    "origin-top fixed z-50 inset-0 flex justify-center items-center px-8 py-12",
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.onClose($event)
+                    }
+                  }
+                },
+                [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "relative bg-white w-full max-w-lg rounded-xl shadow-2xl p-8",
+                      on: {
+                        click: function($event) {
+                          $event.stopPropagation()
+                        }
+                      }
+                    },
+                    [_vm._t("default")],
+                    2
+                  )
+                ]
+              )
+            : _vm._e()
         ]
       )
-    : _vm._e()
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
